@@ -57,7 +57,7 @@ having count(*) >5
 
 -- COMMAND ----------
 
--- Categories Generating Revenue Above 50000
+-- Question: Categories Generating Revenue Above 50000
 select p.category, round(sum(oi.item_total),2) as Revenue from order_items oi
 join products p
 on p.product_id = oi.product_id
@@ -67,7 +67,7 @@ having sum(oi.item_total)>50000
 
 -- COMMAND ----------
 
--- Show customer names with order IDs.
+-- Question: Show customer names with order IDs.
 select u.name , o.order_id from orders o 
 join users u
 on u.user_id = o.user_id
@@ -75,12 +75,12 @@ on u.user_id = o.user_id
 
 -- COMMAND ----------
 
--- 12. Products Purchased in Orders
+-- Question: Find the customers who have never placed any order.
 select * from users where user_id not in (select user_id from orders)
 
 -- COMMAND ----------
 
--- Q13. Find 10 customers who placed the highest number of orders
+-- Question: Find 10 customers who placed the highest number of orders
 select u.name,  count(orders.user_id) as total_orders from orders
 join users u
 on u.user_id = orders.user_id
@@ -90,13 +90,13 @@ limit 10
 
 -- COMMAND ----------
 
--- Q14. Find average order value for each customer
+-- Question: Find average order value for each customer
 select user_id, round(avg(total_amount),2) as avg_amount from orders
 group by user_id
 
 -- COMMAND ----------
 
--- 16. Top 10 Customers by Revenue
+-- Question: Top 10 Customers by Revenue
 select u.user_id, u.name, round(sum(o.total_amount),0) revenue
 from users u
 join orders o
@@ -107,7 +107,7 @@ limit 10
 
 -- COMMAND ----------
 
--- 17.Which products have sold the most units?
+-- Question: Which products have sold the most units?
 select p.product_name, round(sum(quantity),2) as total_quantity
 from order_items oi
 join products p
@@ -118,7 +118,7 @@ limit 10
 
 -- COMMAND ----------
 
--- Write an SQL query to find the highest revenue-generating product in each category.
+-- Question: Write an SQL query to find the highest revenue-generating product in each category.
 with product_sales as
 (select p.category,
         p.product_name,
